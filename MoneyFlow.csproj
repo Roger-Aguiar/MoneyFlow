@@ -8,4 +8,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="src\MoneyFlow.Common\Helpers\" />
+    <Folder Include="src\MoneyFlow.Domain\Entities\" />
+    <Folder Include="src\MoneyFlow.Domain\Enums\" />
+    <Folder Include="src\MoneyFlow.Domain\Interfaces\" />
+    <Folder Include="src\MoneyFlow.Infrastructure\Database\" />
+    <Folder Include="src\MoneyFlow.Infrastructure\Repositories\" />
+    <Folder Include="src\MoneyFlow.UI\Resources\" />
+    <Folder Include="tests\MoneyFlow.Tests\" />
+  </ItemGroup>
+
 </Project>
