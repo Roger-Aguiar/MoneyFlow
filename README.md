@@ -41,5 +41,21 @@ A interface Desktop foi pensada para ser **intuitiva e objetiva**, permitindo qu
 
 ## 🏗️ Arquitetura do Projeto
 
-O projeto segue uma **arquitetura em camadas**, separando responsabilidades e facilitando manutenção, testes e evolução.
+O projeto segue uma *arquitetura em camadas*, separando responsabilidades e facilitando manutenção, testes e evolução.
+
+MoneyFlowDesktop
+│
+├── src
+│   ├── MoneyFlow.UI               # Interface Desktop (WPF / WinForms)
+│   ├── MoneyFlow.Domain           # Entidades e regras de negócio
+│   ├── MoneyFlow.Infrastructure   # Acesso a dados (MySQL)
+│   ├── MoneyFlow.Excel            # Leitura de planilhas Excel
+│   ├── MoneyFlow.Reporting        # Geração de relatórios PDF
+│   └── MoneyFlow.Common           # Utilitários e helpers
+│
+├── docs                           # Documentação técnica
+├── tests                          # Testes automatizados
+└── MoneyFlowDesktop.sln
+
+
 
