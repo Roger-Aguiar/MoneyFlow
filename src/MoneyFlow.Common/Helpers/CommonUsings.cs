@@ -1,2 +1,3 @@
-﻿global using MoneyFlow.src.MoneyFlow.Domain.Entities;
-global using MoneyFlow.Domain.Enums;
+﻿global using MoneyFlow.Domain.Enums;
+global using ClosedXML.Excel;
+global using MoneyFlow.Domain.Entities;
