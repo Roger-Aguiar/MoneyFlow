@@ -14,3 +14,4 @@ CREATE TABLE IF NOT EXISTS financial_records (
     created_at 			TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 SELECT * FROM financial_records;
+DELETE FROM financial_records;

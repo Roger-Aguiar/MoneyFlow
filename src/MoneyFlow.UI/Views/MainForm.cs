@@ -1,22 +1,24 @@
+#nullable disable
 using MoneyFlow.src.MoneyFlow.Excel;
 using MoneyFlow.src.MoneyFlow.Infrastructure.Repositories;
+using System.Globalization;
 
 namespace MoneyFlow
 {
     public partial class MainForm : Form
     {
+        private const string CONNECTION_STRING = "Server=localhost;Database=moneyflow;User Id=root;Password=983453069;";
+
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            TestExcel();
+        
 
-        }
+        #region Private methods
 
-        private static void TestExcel()
+        private void ImportExcelSheet()
         {
             using var openFileDialog = new OpenFileDialog
             {
@@ -33,8 +35,7 @@ namespace MoneyFlow
                 var excelReader = new ExcelReader();
                 var records = excelReader.Read(openFileDialog.FileName);
 
-                var factory = new MySqlConnectionFactory("Server=localhost;Database=moneyflow;User Id=root;Password=983453069;"
-                );
+                var factory = new MySqlConnectionFactory(CONNECTION_STRING);
 
                 var repository = new FinancialRecordRepository(factory);
 
@@ -44,6 +45,7 @@ namespace MoneyFlow
                 }
 
                 MessageBox.Show("Importação realizada com sucesso!", "MoneyFlow", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadFinancialRecords();
             }
             catch (Exception ex)
             {
@@ -54,6 +56,45 @@ namespace MoneyFlow
                     MessageBoxIcon.Error
                 );
             }
+        }
+
+        private void LoadFinancialRecords()
+        {
+            var culture = new CultureInfo("pt-BR");
+
+            DataGridViewFinancialRecords.Rows.Clear();
+
+            var factory = new MySqlConnectionFactory(CONNECTION_STRING);
+
+            var repository = new FinancialRecordRepository(factory);
+
+            var records = repository.GetByPeriod(
+                DateTime.MinValue,
+                DateTime.MaxValue
+            );
+
+            foreach (var record in records)
+            {
+                DataGridViewFinancialRecords.Rows.Add(
+                    record.TransactionDate.ToString("dd/MM/yyyy"),
+                    record.History,
+                    record.Description,
+                    record.Amount.ToString("C", culture),
+                    record.TransactionType == TransactionType.INCOME ? "Entrada" : "Saída"
+                );
+            }
+        }
+
+        #endregion
+
+        private void ButtonImportExcelSheet_Click(object sender, EventArgs e)
+        {
+            ImportExcelSheet();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            LoadFinancialRecords();
         }
     }
 }
